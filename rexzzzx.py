@@ -5,7 +5,7 @@ from modules.ddos import DDoSModule
 from modules.osint import OSINTModule
 from modules.deface import DefaceModule
 
-class RexzzzxCrasherV3:
+class RexzzzxCrasherV2:
     def __init__(self):
         self.version = "2.0"
         self.author = "rexxu958"
